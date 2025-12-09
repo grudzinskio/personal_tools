@@ -9,6 +9,8 @@ personal_tools/
 ├── tools/              # All tool scripts
 ├── slideshows/         # Folder containing subfolders with PPTX files
 │   └── exam2_csc3511/  # Example: folder with PPTX files to merge
+├── pdfs/               # Folder containing subfolders with PDF files
+│   └── example/        # Example: folder with PDF files to combine
 └── requirements.txt    # Python dependencies
 ```
 
@@ -81,6 +83,31 @@ This will:
 - Provides progress feedback
 
 **Note:** This method may not preserve all formatting perfectly. For best results, use the PPTX to PDF Merger instead.
+
+### PDF Combiner
+
+Combines all PDF files from a specified folder into a single PDF.
+
+**Usage:**
+```bash
+python tools/pdf_combiner.py <folder_name>
+```
+
+**Example:**
+```bash
+python tools/pdf_combiner.py example
+```
+
+This will:
+- Find all `.pdf` files in `pdfs/example/`
+- Combine them into a single PDF
+- Save the result as `pdfs/example.pdf`
+
+**Features:**
+- Processes files in alphabetical order
+- Shows page count for each PDF
+- Handles errors gracefully
+- Provides progress feedback
 
 ## Adding New Tools
 
