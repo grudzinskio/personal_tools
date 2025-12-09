@@ -8,6 +8,7 @@ Usage: python tools/pptx_merger.py <folder_name>
 
 import argparse
 import sys
+from io import BytesIO
 from pathlib import Path
 from pptx import Presentation
 
@@ -30,8 +31,10 @@ def copy_slide(source_slide, dest_presentation):
             # Handle pictures
             if shape.shape_type == 13:  # MSO_SHAPE_TYPE.PICTURE
                 image = shape.image
+                # Convert bytes to BytesIO (file-like object) for add_picture()
+                image_bytes = BytesIO(image.blob)
                 dest_slide.shapes.add_picture(
-                    image.blob,
+                    image_bytes,
                     shape.left,
                     shape.top,
                     shape.width,
@@ -62,7 +65,7 @@ def copy_slide(source_slide, dest_presentation):
                         if source_paragraph.font.italic is not None:
                             dest_paragraph.font.italic = source_paragraph.font.italic
             # Handle auto shapes
-            elif hasattr(shape, "auto_shape_type"):
+            elif hasattr(shape, "auto_shape_type") and shape.auto_shape_type is not None:
                 new_shape = dest_slide.shapes.add_shape(
                     shape.auto_shape_type,
                     shape.left,
